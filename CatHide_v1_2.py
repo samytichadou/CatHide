@@ -20,7 +20,7 @@
 bl_info = {  
  "name": "CatHide",  
  "author": "Samy Tichadou (tonton)",  
- "version": (1, 3),  
+ "version": (1, 2),  
  "blender": (2, 7, 8),  
  "location": "3D View > ToolShelf",  
  "description": "Hide Toolshelf Category from 3D View",  
