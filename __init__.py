@@ -44,6 +44,8 @@ from .properties import *
 
 from .gui import *
 
+from .operator.toggle_category_visibility import CATHIDEToggleCategoryVisibility
+
 
 # register
 ##################################
@@ -51,7 +53,10 @@ from .gui import *
 classes = (CatHideViewportPanelsChilds,
             CatHideViewportPanelsPanels,
             CatHideViewportPanelsCategories,
+
             CATHIDE_PT_panel,
+            
+            CATHIDEToggleCategoryVisibility,
             )
 
 def register():

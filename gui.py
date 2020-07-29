@@ -33,6 +33,7 @@ class CATHIDE_PT_panel(bpy.types.Panel):
             row = box.row(align=True)
             row.prop(cat, 'display', text='', icon=getDisplayIcon(cat.display), emboss=False)
             row.label(text=cat.name)
+            row.operator('cathide.toggle_category_visibility', text='', icon='HIDE_OFF').cat = cat.name
 
             # panels
             if cat.display == True:

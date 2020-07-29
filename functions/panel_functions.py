@@ -94,7 +94,7 @@ def unregisterPanel(panel):
         
         bpy.utils.unregister_class(panel)
         
-        print("UNREG : " + panel) #debug
+        print("UNREG : " + panel.__name__) #debug
         # TODO set its property to hidden
         
 
@@ -106,5 +106,5 @@ def registerPanel(panel):
         
         bpy.utils.register_class(panel)
         
-        print("REG : " + panel) #debug
+        print("REG : " + panel.__name__) #debug
         # TODO set its property to not hidden
