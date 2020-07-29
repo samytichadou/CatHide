@@ -42,6 +42,8 @@ from .startup_handler import cathideStartupHandler
 
 from .properties import *
 
+from .gui import *
+
 
 # register
 ##################################
@@ -49,6 +51,7 @@ from .properties import *
 classes = (CatHideViewportPanelsChilds,
             CatHideViewportPanelsPanels,
             CatHideViewportPanelsCategories,
+            CATHIDE_PT_panel,
             )
 
 def register():
