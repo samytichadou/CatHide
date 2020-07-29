@@ -32,6 +32,10 @@ def getAllPanelFromSpaceRegion(space_type, region_type):
 
 # create categories
 def createPanelCategoriesProperties():
+
+    winman = bpy.data.window_managers[0]
+
+    viewport_panels_categories = winman.cathide_viewport_panels_categories
     
     panels, categories, child_panels = getAllPanelFromSpaceRegion("VIEW_3D", "UI")
     
@@ -40,7 +44,10 @@ def createPanelCategoriesProperties():
         print() #debug
         print(cat) #debug
 
-        # TODO create category prop
+        cat_entry = viewport_panels_categories.add()
+        cat_entry.name = cat
+
+        viewport_panels_panels = cat_entry.panels
         
         for panel in panels:
             
@@ -48,7 +55,14 @@ def createPanelCategoriesProperties():
                 
                 print("|--" + panel.bl_label) #debug
                 
-                # TODO append panel in specified cat (label, context, id, original category)
+                panel_entry = viewport_panels_panels.add()
+                panel_entry.name = panel.bl_label
+                panel_entry.idname = panel.__name__
+                panel_entry.original_category = cat
+                if hasattr(panel, 'bl_context'):
+                    panel_entry.context = panel.bl_context
+
+                viewport_panels_childs = panel_entry.child_panels
                 
                 for child in child_panels:
                     
@@ -56,7 +70,12 @@ def createPanelCategoriesProperties():
                     
                         print("|--|--" + child.bl_label) #debug
                         
-                        # TODO append child panel in specified panel (label, context, id, original category)
+                        child_entry = viewport_panels_childs.add()
+                        child_entry.name = child.bl_label
+                        child_entry.idname = child.__name__
+                        child_entry.original_category = cat
+                        if hasattr(child, 'bl_context'):
+                            child_entry.context = child.bl_context
 
 
 # get panel with ID
@@ -64,7 +83,7 @@ def getPanelWithId(id):
     
     panel = getattr(bpy.types, id)
     
-    return Panel
+    return panel
 
                 
 # unregister panel

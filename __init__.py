@@ -46,9 +46,9 @@ from .properties import *
 # register
 ##################################
 
-classes = (CatHide3DPanelsChilds,
-            CatHide3DPanelsPanels,
-            CatHide3DPanelsCategories,
+classes = (CatHideViewportPanelsChilds,
+            CatHideViewportPanelsPanels,
+            CatHideViewportPanelsCategories,
             )
 
 def register():
@@ -59,8 +59,8 @@ def register():
         register_class(cls)
 
     ### PROPERTIES ###
-    bpy.types.WindowManager.cathide_3dpanels_categories = \
-        bpy.props.PointerProperty(type = CatHide3DPanelsCategories, name="CatHide 3D Panels Categories")
+    bpy.types.WindowManager.cathide_viewport_panels_categories = \
+        bpy.props.CollectionProperty(type = CatHideViewportPanelsCategories, name="CatHide 3D Panels Categories")
 
     ### HANDLER ###
     bpy.app.handlers.load_post.append(cathideStartupHandler)
@@ -74,7 +74,7 @@ def unregister():
         unregister_class(cls)
 
     ### PROPERTIES ###
-    del bpy.types.WindowManager.cathide_3dpanels_categories
+    del bpy.types.WindowManager.cathide_viewport_panels_categories
 
     ### HANDLER ###
     bpy.app.handlers.load_post.remove(cathideStartupHandler)
