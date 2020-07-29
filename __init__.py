@@ -22,7 +22,7 @@ bl_info = {
  "name": "CatHide",  
  "author": "Samy Tichadou (tonton)",  
  "version": (2, 0),  
- "blender": (2, 90, 0),  
+ "blender": (2, 90, 0), 
  "location": "3D View",  
  "description": "",  
  "wiki_url": "",  
@@ -50,7 +50,6 @@ classes = (CatHide3DPanelsChilds,
             CatHide3DPanelsPanels,
             CatHide3DPanelsCategories,
             )
-
 
 def register():
 
