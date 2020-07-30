@@ -58,6 +58,7 @@ def createPanelCategoriesProperties():
                 panel_entry = viewport_panels_panels.add()
                 panel_entry.name = panel.bl_label
                 panel_entry.idname = panel.__name__
+                panel_entry.idtest = str(panel)
                 panel_entry.original_category = cat
                 if hasattr(panel, 'bl_context'):
                     panel_entry.context = panel.bl_context
@@ -90,7 +91,7 @@ def getPanelWithId(id):
 def unregisterPanel(panel):
     
     # check if registered
-    if "bl_rna" in panel.__dict__:
+    if panel.is_registered:
         
         bpy.utils.unregister_class(panel)
         
@@ -102,7 +103,7 @@ def unregisterPanel(panel):
 def registerPanel(panel):
     
     # check if registered
-    if "bl_rna" not in panel.__dict__:
+    if not panel.is_registered:
         
         bpy.utils.register_class(panel)
         
