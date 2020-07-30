@@ -82,9 +82,12 @@ def createPanelCategoriesProperties():
 # get panel with ID
 def getPanelWithId(id):
     
-    panel = getattr(bpy.types, id)
-    
-    return panel
+    # panel = getattr(bpy.types, id)
+    for panel in bpy.types.Panel.__subclasses__():
+        if panel.__name__ == id:
+            return panel
+   
+    return
 
                 
 # unregister panel
