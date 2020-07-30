@@ -25,8 +25,8 @@ bl_info = {
  "blender": (2, 90, 0), 
  "location": "3D View",  
  "description": "",  
- "wiki_url": "",  
- "tracker_url": "",  
+ "wiki_url": "https://github.com/samytichadou/CatHide/",  
+ "tracker_url": "https://github.com/samytichadou/CatHide/issues/new",  
  "category": "Interface",
  "warning": "Alpha version, use at your own risks"
  }
