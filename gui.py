@@ -9,6 +9,24 @@ def getDisplayIcon(prop):
     return display_icon
 
 
+# asset ui list
+class CATHIDE_UL_panel_ui_list(bpy.types.UIList): 
+
+    def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
+
+        if item.hide:
+            layout.enabled = False
+        else:
+            layout.enabled = True
+
+        if self.layout_type in {'DEFAULT', 'COMPACT'}: 
+            layout.label(text = item.name) 
+            
+        elif self.layout_type in {'GRID'}: 
+            layout.alignment = 'CENTER' 
+            layout.label(text = item.name)
+
+
 class CATHIDE_PT_panel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -30,32 +48,35 @@ class CATHIDE_PT_panel(bpy.types.Panel):
         # categories
         for cat in viewport_panels_categories:
             box = col.box()
+
             row = box.row(align=True)
+
             row.prop(cat, 'display', text='', icon=getDisplayIcon(cat.display), emboss=False)
-            row.label(text=cat.name)
+
+            subrow = row.row()
+            if cat.hide:
+                subrow.enabled = False
+            else:
+                subrow.enabled = True
+            subrow.label(text=cat.name)
+
             row.operator('cathide.toggle_category_visibility', text='', icon='HIDE_OFF').cat = cat.name
 
             # panels
             if cat.display == True:
                 viewport_panels_panels = cat.panels
-                col = box.column(align=True)
 
-                for panel in viewport_panels_panels:
-                    subbox = col.box()
-                    row = subbox.row(align=True)
-                    row.prop(panel, 'display', text='', icon=getDisplayIcon(panel.display), emboss=False)
-                    row.label(text=panel.name)
+                box.template_list("CATHIDE_UL_panel_ui_list", "", cat, "panels", cat, "panels_index", rows = 3)
 
-                    # panel info
-                    if panel.display:
-                        row = subbox.row(align=True)
-                        row.label(text=panel.idname)
-                        row = subbox.row(align=True)
-                        row.label(text=panel.context)
-                        row = subbox.row(align=True)
-                        row.label(text=panel.original_category)
+                box.prop(cat, "panels_display")
 
-                        if panel.child_panels:
-                            row = subbox.row(align=True)
-                            row.prop(panel, 'child_display', text='', icon=getDisplayIcon(panel.child_display), emboss=False)
-                            row.label(text="Child Panels")
+                if cat.panels_display:
+
+                    selected_panel = viewport_panels_panels[cat.panels_index]
+
+                    row = box.row(align=True)
+                    row.label(text=selected_panel.idname)
+                    row = box.row(align=True)
+                    row.label(text=selected_panel.original_category)
+                    row = box.row(align=True)
+                    row.label(text=selected_panel.context)

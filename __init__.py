@@ -55,6 +55,7 @@ classes = (CatHideViewportPanelsChilds,
             CatHideViewportPanelsCategories,
 
             CATHIDE_PT_panel,
+            CATHIDE_UL_panel_ui_list,
             
             CATHIDEToggleCategoryVisibility,
             )
