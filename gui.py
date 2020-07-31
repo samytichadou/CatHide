@@ -1,7 +1,5 @@
 import bpy
 
-from .global_variables import exception_panels
-
 
 def get_display_icon(prop):
     if prop:
@@ -21,7 +19,7 @@ class CATHIDE_UL_panel_ui_list(bpy.types.UIList):
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 
-        if item.hide or item.idname in exception_panels:
+        if item.hide or item.protected:
             layout.enabled = False
         else:
             layout.enabled = True
@@ -67,7 +65,8 @@ class CATHIDE_PT_panel(bpy.types.Panel):
                 subrow.enabled = True
             subrow.label(text=cat.name)
 
-            row.operator('cathide.toggle_category_visibility', text='', icon='HIDE_OFF').cat = cat.name
+            if not cat.protected:
+                row.operator('cathide.toggle_category_visibility', text='', icon='HIDE_OFF').cat = cat.name
 
             # panels
             if cat.display == True:
@@ -83,6 +82,12 @@ class CATHIDE_PT_panel(bpy.types.Panel):
                 if selected_panel:
 
                     row = box.row(align=True)
+                    
+                    if selected_panel.protected:
+                        row.enabled = False
+                    else:
+                        row.enabled = True
+
                     row.operator('cathide.move_panel_to_category', text = "Move").category = cat.name
 
                     row = box.row(align=True)

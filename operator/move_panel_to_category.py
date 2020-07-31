@@ -30,6 +30,7 @@ def move_panel_entry_to_new_category_entry(panel_entry, old_category_entry, new_
     new_panel.context = panel_entry.context
     new_panel.original_category = panel_entry.original_category
     new_panel.hide = panel_entry.hide
+    new_panel.protected = panel_entry.protected
     
     if panel_entry.child_panels:
 
@@ -73,7 +74,6 @@ class CATHIDE_OT_move_panel_to_category(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        # not if hide or nothing selected TODO
         return True
 
 

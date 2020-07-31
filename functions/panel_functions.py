@@ -1,5 +1,8 @@
 import bpy
 
+from ..global_variables import categories_exceptions, panels_exceptions
+
+
 # get all panel for space_type
 def getAllPanelFromSpaceRegion(space_type, region_type):
     
@@ -47,6 +50,9 @@ def createPanelCategoriesProperties():
         cat_entry = viewport_panels_categories.add()
         cat_entry.name = cat
 
+        if cat in categories_exceptions:
+            cat_entry.protected = True
+
         viewport_panels_panels = cat_entry.panels
         
         for panel in panels:
@@ -62,6 +68,9 @@ def createPanelCategoriesProperties():
                 panel_entry.original_category = cat
                 if hasattr(panel, 'bl_context'):
                     panel_entry.context = panel.bl_context
+
+                if panel.__name__ in panels_exceptions:
+                    panel_entry.protected = True
 
                 viewport_panels_childs = panel_entry.child_panels
                 
