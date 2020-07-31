@@ -1,5 +1,7 @@
 import bpy
 
+from .global_variables import exception_panels
+
 
 def get_display_icon(prop):
     if prop:
@@ -14,7 +16,7 @@ class CATHIDE_UL_panel_ui_list(bpy.types.UIList):
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 
-        if item.hide:
+        if item.hide or item.idname in exception_panels:
             layout.enabled = False
         else:
             layout.enabled = True
@@ -76,7 +78,7 @@ class CATHIDE_PT_panel(bpy.types.Panel):
                 if selected_panel:
 
                     row = box.row(align=True)
-                    row.operator('cathide.move_panel_to_category').category = cat.name
+                    row.operator('cathide.move_panel_to_category', text = "Move").category = cat.name
 
                     row = box.row(align=True)
                     row.prop(cat, "panels_display", text='', icon=get_display_icon(cat.panels_display), emboss=False)
@@ -84,10 +86,18 @@ class CATHIDE_PT_panel(bpy.types.Panel):
 
                     if cat.panels_display:
 
+                        col = box.column(align=True)
 
-                        row = box.row(align=True)
+                        row = col.row(align=True)
                         row.label(text=selected_panel.idname)
-                        row = box.row(align=True)
+                        row = col.row(align=True)
+                        row.label(text = "Originally : ")
                         row.label(text=selected_panel.original_category)
-                        row = box.row(align=True)
-                        row.label(text=selected_panel.context)
+
+                        if selected_panel.context:
+                            context_text = selected_panel.context
+                        else:
+                            context_text = "No context"
+
+                        row = col.row(align=True)
+                        row.label(text=context_text)
