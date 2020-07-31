@@ -53,23 +53,23 @@ def move_panel_childs_entries_to_new_panel_entry(old_panel_entry, new_panel_entr
         new_child.name = child.name
         new_child.idname = child.idname
         new_child.context = child.context
-        new_child.original_category = child.original_category
+        # new_child.original_category = child.original_category
         new_child.hide = child.hide
 
 
 class CATHIDE_OT_move_panel_to_category(bpy.types.Operator):
-    """Go Back to Edit Project"""
+    """Move selected Panel to other Category"""
     bl_idname = "cathide.move_panel_to_category"
     bl_label = "Move Panel to Category"
     bl_options = {'REGISTER', 'INTERNAL'}
 
 
-    category = bpy.props.StringProperty()
+    category : bpy.props.StringProperty()
 
-    target_category = bpy.props.EnumProperty(name = "Category", items = categories_items_callbacks)
+    target_category : bpy.props.EnumProperty(name = "Category", items = categories_items_callbacks)
 
-    cat_entry = None
-    panel_entry = None
+    cat_entry : None
+    panel_entry : None
 
 
     @classmethod

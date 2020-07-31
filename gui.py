@@ -48,6 +48,8 @@ class CATHIDE_PT_panel(bpy.types.Panel):
 
         layout = self.layout
 
+        layout.operator('cathide.refresh_lists')
+
         col = layout.column(align=True)
 
         # categories
@@ -82,7 +84,7 @@ class CATHIDE_PT_panel(bpy.types.Panel):
                 if selected_panel:
 
                     row = box.row(align=True)
-                    
+
                     if selected_panel.protected:
                         row.enabled = False
                     else:

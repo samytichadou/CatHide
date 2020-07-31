@@ -48,6 +48,8 @@ from .operator.toggle_category_visibility import *
 
 from .operator.move_panel_to_category import *
 
+from .operator.refresh_lists_operator import *
+
 
 # register
 ##################################
@@ -61,6 +63,7 @@ classes = (CatHideViewportPanelsChilds,
             
             CATHIDE_OT_toggle_category_visibility,
             CATHIDE_OT_move_panel_to_category,
+            CATHIDE_OT_refresh_lists,
             )
 
 def register():
@@ -79,6 +82,8 @@ def register():
 
     ### MENU ###
     bpy.types.VIEW3D_MT_editor_menus.append(topbar_menu_function)
+
+    # init lists if needed TODO
 
 
 def unregister():

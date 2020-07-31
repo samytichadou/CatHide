@@ -33,12 +33,12 @@ def toggleCatPanelsVisibility(cat_property, hide):
 
 
 class CATHIDE_OT_toggle_category_visibility(bpy.types.Operator):
-    """Go Back to Edit Project"""
+    """Toggle Category Visibility"""
     bl_idname = "cathide.toggle_category_visibility"
     bl_label = "Toggle Visibility"
     bl_options = {'REGISTER', 'INTERNAL'}
 
-    cat = bpy.props.StringProperty()
+    cat : bpy.props.StringProperty()
 
     @classmethod
     def poll(cls, context):
