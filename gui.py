@@ -1,7 +1,7 @@
 import bpy
 
 
-def getDisplayIcon(prop):
+def get_display_icon(prop):
     if prop:
         display_icon = "TRIA_DOWN"
     else:
@@ -51,7 +51,7 @@ class CATHIDE_PT_panel(bpy.types.Panel):
 
             row = box.row(align=True)
 
-            row.prop(cat, 'display', text='', icon=getDisplayIcon(cat.display), emboss=False)
+            row.prop(cat, 'display', text='', icon=get_display_icon(cat.display), emboss=False)
 
             subrow = row.row()
             if cat.hide:
@@ -68,15 +68,26 @@ class CATHIDE_PT_panel(bpy.types.Panel):
 
                 box.template_list("CATHIDE_UL_panel_ui_list", "", cat, "panels", cat, "panels_index", rows = 3)
 
-                box.prop(cat, "panels_display")
-
-                if cat.panels_display:
-
+                try:
                     selected_panel = viewport_panels_panels[cat.panels_index]
+                except IndexError:
+                    selected_panel = None
+
+                if selected_panel:
 
                     row = box.row(align=True)
-                    row.label(text=selected_panel.idname)
+                    row.operator('cathide.move_panel_to_category').category = cat.name
+
                     row = box.row(align=True)
-                    row.label(text=selected_panel.original_category)
-                    row = box.row(align=True)
-                    row.label(text=selected_panel.context)
+                    row.prop(cat, "panels_display", text='', icon=get_display_icon(cat.panels_display), emboss=False)
+                    row.label(text="Details")
+
+                    if cat.panels_display:
+
+
+                        row = box.row(align=True)
+                        row.label(text=selected_panel.idname)
+                        row = box.row(align=True)
+                        row.label(text=selected_panel.original_category)
+                        row = box.row(align=True)
+                        row.label(text=selected_panel.context)
