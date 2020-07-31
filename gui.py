@@ -11,7 +11,12 @@ def get_display_icon(prop):
     return display_icon
 
 
-# asset ui list
+# topbar function
+def topbar_menu_function(self, context):
+    self.layout.separator()
+    self.layout.popover(panel='CATHIDE_PT_panel')
+
+
 class CATHIDE_UL_panel_ui_list(bpy.types.UIList): 
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
@@ -31,9 +36,9 @@ class CATHIDE_UL_panel_ui_list(bpy.types.UIList):
 
 class CATHIDE_PT_panel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "View"
+    bl_region_type = "TOOL_HEADER"
     bl_label = "CatHide"
+    is_popover = True
 
     @classmethod
     def poll(cls, context):
@@ -100,4 +105,5 @@ class CATHIDE_PT_panel(bpy.types.Panel):
                             context_text = "No context"
 
                         row = col.row(align=True)
+                        row.label(text = "Context : ")
                         row.label(text=context_text)

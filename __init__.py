@@ -77,6 +77,9 @@ def register():
     ### HANDLER ###
     bpy.app.handlers.load_post.append(cathideStartupHandler)
 
+    ### MENU ###
+    bpy.types.VIEW3D_MT_editor_menus.append(topbar_menu_function)
+
 
 def unregister():
     
@@ -90,3 +93,6 @@ def unregister():
 
     ### HANDLER ###
     bpy.app.handlers.load_post.remove(cathideStartupHandler)
+
+    ### MENU ###
+    bpy.types.VIEW3D_MT_editor_menus.remove(topbar_menu_function)
