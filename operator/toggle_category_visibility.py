@@ -32,7 +32,7 @@ def toggleCatPanelsVisibility(cat_property, hide):
             togglePanelChildsVisibility(panel, hide)
 
 
-class CATHIDEToggleCategoryVisibility(bpy.types.Operator):
+class CATHIDE_OT_toggle_category_visibility(bpy.types.Operator):
     """Go Back to Edit Project"""
     bl_idname = "cathide.toggle_category_visibility"
     bl_label = "Toggle Visibility"
