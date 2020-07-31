@@ -44,7 +44,9 @@ from .properties import *
 
 from .gui import *
 
-from .operator.toggle_category_visibility import CATHIDEToggleCategoryVisibility
+from .operator.toggle_category_visibility import *
+
+from .operator.move_panel_to_category import *
 
 
 # register
@@ -57,7 +59,8 @@ classes = (CatHideViewportPanelsChilds,
             CATHIDE_PT_panel,
             CATHIDE_UL_panel_ui_list,
             
-            CATHIDEToggleCategoryVisibility,
+            CATHIDE_OT_toggle_category_visibility,
+            CATHIDE_OT_move_panel_to_category,
             )
 
 def register():
