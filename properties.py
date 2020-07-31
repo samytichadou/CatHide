@@ -14,8 +14,8 @@ class CatHideViewportPanelsPanels(bpy.types.PropertyGroup) :
     idname : bpy.props.StringProperty(name="ID")
     context : bpy.props.StringProperty(name="Context")
     original_category : bpy.props.StringProperty(name="Original Category")
-    child_panels : bpy.props.CollectionProperty(type = CatHideViewportPanelsChilds, name="Childs")
     hide : bpy.props.BoolProperty(name = "Hide")
+    child_panels : bpy.props.CollectionProperty(type = CatHideViewportPanelsChilds, name="Childs")
     # display : bpy.props.BoolProperty(name = "Display Panel")
     # child_display : bpy.props.BoolProperty(name = "Display Childs")
 
