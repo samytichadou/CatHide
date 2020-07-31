@@ -31,10 +31,9 @@ def move_panel_entry_to_new_category_entry(panel_entry, old_category_entry, new_
     new_panel.original_category = panel_entry.original_category
     new_panel.hide = panel_entry.hide
     
-    try:
-        new_panel.child_panels = panel_entry.child_panels
-    except AttributeError:
-        pass
+    if panel_entry.child_panels:
+
+        move_panel_childs_entries_to_new_panel_entry(panel_entry, new_panel)
 
     # remove old
 
@@ -42,6 +41,19 @@ def move_panel_entry_to_new_category_entry(panel_entry, old_category_entry, new_
         if elm.idname == panel_entry.idname:
             old_category_entry.panels.remove(i)
             break
+
+
+def move_panel_childs_entries_to_new_panel_entry(old_panel_entry, new_panel_entry):
+
+    for child in old_panel_entry.child_panels:
+
+        new_child = new_panel_entry.child_panels.add()
+
+        new_child.name = child.name
+        new_child.idname = child.idname
+        new_child.context = child.context
+        new_child.original_category = child.original_category
+        new_child.hide = child.hide
 
 
 class CATHIDE_OT_move_panel_to_category(bpy.types.Operator):
