@@ -28,3 +28,4 @@ class CatHideViewportPanelsCategories(bpy.types.PropertyGroup) :
     panels_display : bpy.props.BoolProperty(name = "Display Panels Informations")
     panels_index : bpy.props.IntProperty(min=-1)
     protected : bpy.props.BoolProperty()
+    # show_all_panels : bpy.props.BoolProperty(name = "Show All Panels")

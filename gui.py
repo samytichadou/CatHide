@@ -15,7 +15,7 @@ def topbar_menu_function(self, context):
     self.layout.popover(panel='CATHIDE_PT_panel')
 
 
-class CATHIDE_UL_panel_ui_list(bpy.types.UIList): 
+class CATHIDE_UL_panel_ui_list(bpy.types.UIList):
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 
@@ -31,6 +31,39 @@ class CATHIDE_UL_panel_ui_list(bpy.types.UIList):
             layout.alignment = 'CENTER' 
             layout.label(text = item.name)
 
+    # # Called once to filter/reorder items.
+    # def filter_items(self, context, data, propname):
+
+    #     helper_funcs = bpy.types.UI_UL_list
+
+    #     display = context.window_manager.bpm_generalsettings.panel_asset_display
+
+    #     # Default return values.
+    #     flt_flags = []
+    #     flt_neworder = []
+
+    #     col = getattr(data, propname)
+        
+    #     ### FILTERING ###
+    #     if self.filter_name or display != "ALL" or self.use_filter_sort_alpha:
+    #         flt_flags = [self.bitflag_filter_item] * len(col)
+
+    #         # name search
+    #         if self.filter_name :
+    #             flt_flags = helper_funcs.filter_items_by_name(self.filter_name, self.bitflag_filter_item, col, "name", flags=None, reverse=False)
+
+    #         # category search
+    #         if display != "ALL":
+    #             for idx, asset in enumerate(col):
+    #                 if asset.asset_type != display:
+    #                     flt_flags[idx] = 0
+
+    #         # Reorder by name
+    #         if self.use_filter_sort_alpha:
+    #             flt_neworder = helper_funcs.sort_items_by_name(col, "name")
+
+    #     return flt_flags, flt_neworder
+
 
 class CATHIDE_PT_panel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
@@ -43,8 +76,8 @@ class CATHIDE_PT_panel(bpy.types.Panel):
         return True
 
     def draw(self, context):
-        winman = context.window_manager
-        viewport_panels_categories = winman.cathide_viewport_panels_categories
+
+        viewport_panels_categories = context.window_manager.cathide_viewport_panels_categories
 
         layout = self.layout
 
