@@ -58,54 +58,56 @@ def createPanelCategoriesProperties():
         viewport_panels_panels = cat_entry.panels
         
         for panel in panels:
+
+            if hasattr(panel, 'bl_category'):
             
-            if panel.bl_category == cat:
-                
-                print("|-- " + panel.bl_label) #debug
-                
-                panel_entry = viewport_panels_panels.add()
-                panel_entry.name = panel.bl_label
-                panel_entry.idname = panel.__name__
-                panel_entry.idtest = str(panel)
-                panel_entry.original_category = cat
-
-                if hasattr(panel, 'bl_context'):
-                    chk_context = False
-                    for cont in context_naming_list:
-                        if panel.bl_context == cont[1]:
-                            panel_entry.context = cont[0]
-                            chk_context = True
-                            break
-
-                    if not chk_context:
-                        panel_entry.context = panel.bl_context
-
-                if panel.__name__ in panels_exceptions:
-                    panel_entry.protected = True
-
-                viewport_panels_childs = panel_entry.child_panels
-                
-                for child in child_panels:
+                if panel.bl_category == cat:
                     
-                    if child.bl_parent_id == panel.__name__:
+                    print("|-- " + panel.bl_label) #debug
                     
-                        print("|  |-- " + child.bl_label) #debug
+                    panel_entry = viewport_panels_panels.add()
+                    panel_entry.name = panel.bl_label
+                    panel_entry.idname = panel.__name__
+                    panel_entry.idtest = str(panel)
+                    panel_entry.original_category = cat
+
+                    if hasattr(panel, 'bl_context'):
+                        chk_context = False
+                        for cont in context_naming_list:
+                            if panel.bl_context == cont[1]:
+                                panel_entry.context = cont[0]
+                                chk_context = True
+                                break
+
+                        if not chk_context:
+                            panel_entry.context = panel.bl_context
+
+                    if panel.__name__ in panels_exceptions:
+                        panel_entry.protected = True
+
+                    viewport_panels_childs = panel_entry.child_panels
+                    
+                    for child in child_panels:
                         
-                        child_entry = viewport_panels_childs.add()
-                        child_entry.name = child.bl_label
-                        child_entry.idname = child.__name__
-                        child_entry.original_category = cat
+                        if child.bl_parent_id == panel.__name__:
+                        
+                            print("|  |-- " + child.bl_label) #debug
+                            
+                            child_entry = viewport_panels_childs.add()
+                            child_entry.name = child.bl_label
+                            child_entry.idname = child.__name__
+                            child_entry.original_category = cat
 
-                        if hasattr(child, 'bl_context'):
-                            chk_context = False
-                            for cont in context_naming_list:
-                                if child.bl_context == cont[1]:
-                                    child_entry.context = cont[0]
-                                    chk_context = True
-                                    break
+                            if hasattr(child, 'bl_context'):
+                                chk_context = False
+                                for cont in context_naming_list:
+                                    if child.bl_context == cont[1]:
+                                        child_entry.context = cont[0]
+                                        chk_context = True
+                                        break
 
-                            if not chk_context:
-                                child_entry.context = child.bl_context
+                                if not chk_context:
+                                    child_entry.context = child.bl_context
 
 
 # get panel with ID
