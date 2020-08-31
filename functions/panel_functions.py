@@ -63,10 +63,15 @@ def createPanelCategoriesProperties():
             
                 if panel.bl_category == cat:
                     
-                    print("|-- " + panel.bl_label) #debug
-                    
                     panel_entry = viewport_panels_panels.add()
-                    panel_entry.name = panel.bl_label
+                    
+                    if hasattr(panel, 'bl_label'):
+                        print("|-- " + panel.bl_label) #debug
+                        panel_entry.name = panel.bl_label
+                    else:
+                        print("|-- " + panel.__name__) #debug
+                        panel_entry.name = panel.__name__
+                    
                     panel_entry.idname = panel.__name__
                     panel_entry.idtest = str(panel)
                     panel_entry.original_category = cat
