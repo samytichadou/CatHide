@@ -26,9 +26,11 @@ def getAllPanelFromSpaceRegion(space_type, region_type):
                 
                     panel_list.append(panel)
                 
-                if panel.bl_category not in category_list:
-                    
-                    category_list.append(panel.bl_category)
+                if hasattr(panel, 'bl_category'):
+
+                    if panel.bl_category not in category_list:
+                        
+                        category_list.append(panel.bl_category)
                     
     return panel_list, category_list, panel_child_list
 
