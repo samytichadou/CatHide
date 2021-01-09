@@ -1,6 +1,8 @@
 import bpy
 
 from ..functions.panel_functions import createPanelCategoriesProperties
+from ..addon_prefs import get_addon_preferences
+from ..global_variables import cathide_print
 
 
 def clear_collection(collection) :
@@ -57,19 +59,21 @@ class CATHIDE_OT_refresh_lists(bpy.types.Operator):
 
     def execute(self, context):
 
-        print("CatHide retrieving original categories") #debug
+        debug = get_addon_preferences().debug
+
+        if debug: print(cathide_print + "Retrieving original categories") #debug
 
         original_cat_list = get_panels_original_categories()
 
-        print("CatHide emptying lists") #debug
+        if debug: print(cathide_print + "Emptying lists") #debug
 
         empty_lists()
 
-        print("CatHide loading panels : ") #debug
+        if debug: print(cathide_print + "Loading panels : ") #debug
 
         createPanelCategoriesProperties()
 
-        print("Cathide resetting original categories")
+        if debug: print(cathide_print + "Resetting original categories") #debug
 
         reset_original_categories(original_cat_list)
 

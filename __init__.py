@@ -50,6 +50,8 @@ from .operator.move_panel_to_category import *
 
 from .operator.refresh_lists_operator import *
 
+from .addon_prefs import *
+
 
 # register
 ##################################
@@ -64,6 +66,8 @@ classes = (CatHideViewportPanelsChilds,
             CATHIDE_OT_toggle_category_visibility,
             CATHIDE_OT_move_panel_to_category,
             CATHIDE_OT_refresh_lists,
+
+            CATHIDE_addon_prefs,
             )
 
 def register():

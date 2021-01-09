@@ -1,6 +1,7 @@
 import bpy
 
-from ..global_variables import categories_exceptions, panels_exceptions, context_naming_list
+from ..global_variables import categories_exceptions, panels_exceptions, context_naming_list, cathide_print
+from ..addon_prefs import get_addon_preferences
 
 
 # get all panel for space_type
@@ -43,11 +44,12 @@ def createPanelCategoriesProperties():
     viewport_panels_categories = winman.cathide_viewport_panels_categories
     
     panels, categories, child_panels = getAllPanelFromSpaceRegion("VIEW_3D", "UI")
+
+    debug = get_addon_preferences().debug
     
     for cat in categories:
         
-        print() #debug
-        print(cat) #debug
+        if debug: print(cat) #debug
 
         cat_entry = viewport_panels_categories.add()
         cat_entry.name = cat
@@ -66,10 +68,10 @@ def createPanelCategoriesProperties():
                     panel_entry = viewport_panels_panels.add()
                     
                     if hasattr(panel, 'bl_label'):
-                        print("|-- " + panel.bl_label) #debug
+                        if debug: print("|-- " + panel.bl_label) #debug
                         panel_entry.name = panel.bl_label
                     else:
-                        print("|-- " + panel.__name__) #debug
+                        if debug: print("|-- " + panel.__name__) #debug
                         panel_entry.name = panel.__name__
                     
                     panel_entry.idname = panel.__name__
@@ -96,7 +98,7 @@ def createPanelCategoriesProperties():
                         
                         if child.bl_parent_id == panel.__name__:
                         
-                            print("|  |-- " + child.bl_label) #debug
+                            if debug: print("|  |-- " + child.bl_label) #debug
                             
                             child_entry = viewport_panels_childs.add()
                             child_entry.name = child.bl_label
@@ -114,6 +116,11 @@ def createPanelCategoriesProperties():
                                 if not chk_context:
                                     child_entry.context = child.bl_context
 
+    if debug: 
+        print()
+        print(cathide_print + "Panels loaded") #debug
+        print()
+
 
 # get panel with ID
 def getPanelWithId(id):
@@ -128,23 +135,27 @@ def getPanelWithId(id):
                 
 # unregister panel
 def unregisterPanel(panel):
+
+    debug = get_addon_preferences().debug
     
     # check if registered
     if panel.is_registered:
         
         bpy.utils.unregister_class(panel)
         
-        print("UNREG : " + panel.__name__) #debug
+        if debug: print(cathide_print + "UNREG : " + panel.__name__) #debug
         # TODO set its property to hidden
         
 
 # register panel
 def registerPanel(panel):
+
+    debug = get_addon_preferences().debug
     
     # check if registered
     if not panel.is_registered:
         
         bpy.utils.register_class(panel)
         
-        print("REG : " + panel.__name__) #debug
+        if debug: print(cathide_print + "REG : " + panel.__name__) #debug
         # TODO set its property to not hidden

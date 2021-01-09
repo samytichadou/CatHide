@@ -36,3 +36,5 @@ context_naming_list = [
     ["EDIT_CURVE",".curve_edit"],
 
     ]
+
+cathide_print = "Cathide --- "
