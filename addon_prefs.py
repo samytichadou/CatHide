@@ -12,11 +12,17 @@ class CATHIDE_addon_prefs(bpy.types.AddonPreferences):
         default = False,
         )
 
+    cathide_folder : bpy.props.StringProperty(
+        name = "Preferences Folder",
+        default = os.path.join(bpy.utils.user_resource('DATAFILES'), "cathide"),
+        subtype = "DIR_PATH",
+        )
 
     def draw(self, context):
         layout = self.layout
 
         layout.prop(self, "debug")
+        layout.prop(self, "cathide_folder")
 
 
 # get addon preferences
